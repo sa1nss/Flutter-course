@@ -15,4 +15,14 @@ class ProfileViewModel extends ChangeNotifier {
     _selectedProfile = profile;
     notifyListeners();
   }
+
+  void addProfile(Profile profile) {
+    _repository.addProfile(profile);
+    notifyListeners();
+  }
+
+  void duplicateProfile(Profile profile) {
+    _repository.duplicateProfile(profile);
+    notifyListeners();
+  }
 }

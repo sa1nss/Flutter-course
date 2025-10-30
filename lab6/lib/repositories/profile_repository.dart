@@ -10,9 +10,9 @@ class ProfileRepository {
     ),
     const Profile(
       name: 'Данііл Коробков',
-      title: ' SysAdmin',
+      title: 'SysAdmin',
       email: 'korobkov@gmail.com',
-      bio: 'Системний адміністратор в IT-компанії ',
+      bio: 'Системний адміністратор в IT-компанії',
     ),
     const Profile(
       name: 'Данііл Коробков',
@@ -25,4 +25,18 @@ class ProfileRepository {
   List<Profile> getAllProfiles() => _profiles;
 
   Profile getProfileByIndex(int index) => _profiles[index];
+
+  void addProfile(Profile profile) {
+    _profiles.add(profile);
+  }
+
+  void duplicateProfile(Profile profile) {
+    final newProfile = Profile(
+      name: '${profile.name} (Копія)',
+      title: profile.title,
+      email: profile.email,
+      bio: profile.bio,
+    );
+    _profiles.add(newProfile);
+  }
 }
