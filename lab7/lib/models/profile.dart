@@ -24,4 +24,22 @@ class Profile {
       bio: bio ?? this.bio,
     );
   }
+
+  factory Profile.fromJson(Map<String, dynamic> json) {
+    return Profile(
+      name: json['name'],
+      title: json['title'],
+      email: json['email'],
+      bio: json['bio'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'title': title,
+      'email': email,
+      'bio': bio,
+    };
+  }
 }
