@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../viewmodels/profile_viewmodel.dart';
 import '../models/profile.dart';
 import 'package:go_router/go_router.dart';
+import '../theme/theme_provider.dart';   
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -30,7 +31,20 @@ class _HomeViewState extends State<HomeView> {
     final profiles = vm.profiles;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Резюме Білдер')),
+      appBar: AppBar(
+        title: const Text('Резюме Білдер'),
+        actions: [
+          Consumer<ThemeProvider>(
+            builder: (context, theme, _) {
+              return Switch(
+                value: theme.isDark,
+                onChanged: (_) => theme.toggleTheme(),
+              );
+            },
+          ),
+        ],
+      ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -87,6 +101,7 @@ class _HomeViewState extends State<HomeView> {
   }
 }
 
+
 class AddProfileForm extends StatefulWidget {
   const AddProfileForm({super.key});
 
@@ -130,6 +145,7 @@ class _AddProfileFormState extends State<AddProfileForm> {
                 decoration: const InputDecoration(labelText: 'Про себе'),
                 maxLines: 3,
               ),
+
               const SizedBox(height: 20),
 
               ElevatedButton.icon(
