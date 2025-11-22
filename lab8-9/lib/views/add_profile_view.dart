@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/profile.dart';
 import '../viewmodels/profile_viewmodel.dart';
+import '../widgets/ad_unified_banner.dart'; 
 
 class AddProfileView extends StatefulWidget {
   const AddProfileView({super.key});
@@ -27,7 +28,7 @@ class _AddProfileViewState extends State<AddProfileView> {
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
-          child: Column(
+          child: ListView(
             children: [
               TextFormField(
                 controller: _nameController,
@@ -47,7 +48,11 @@ class _AddProfileViewState extends State<AddProfileView> {
                 controller: _bioController,
                 decoration: const InputDecoration(labelText: 'Bio'),
               ),
+
               const SizedBox(height: 20),
+              const AdUnifiedBanner(), 
+              const SizedBox(height: 20),
+
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../viewmodels/github_viewmodel.dart';
+import '../widgets/ad_unified_banner.dart'; 
 
 class GithubView extends StatefulWidget {
   const GithubView({Key? key}) : super(key: key);
@@ -28,9 +29,7 @@ class _GithubViewState extends State<GithubView> {
         title: const Text('GitHub статистика'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            context.go('/');
-          },
+          onPressed: () => context.go('/'),
         ),
       ),
       body: Padding(
@@ -65,8 +64,12 @@ class _GithubViewState extends State<GithubView> {
             else if (vm.state == GithubState.error)
               Text(vm.errorMessage ?? 'Невідома помилка',
                   style: const TextStyle(color: Colors.red))
-            else if (vm.state == GithubState.loaded && vm.user != null)
-              _buildUser(vm.user!)
+            else if (vm.state == GithubState.loaded && vm.user != null) ...[
+              _buildUser(vm.user!),
+
+              const SizedBox(height: 20),
+              const AdUnifiedBanner(), 
+            ]
             else
               const Text('Введіть username і натисніть Пошук'),
           ],

@@ -7,7 +7,10 @@ class LocalStorageService {
 
   Future<void> saveProfiles(List<Profile> profiles) async {
     final prefs = await SharedPreferences.getInstance();
-    final jsonList = profiles.map((p) => jsonEncode(p.toJson())).toList();
+
+    final List<String> jsonList =
+        profiles.map((p) => jsonEncode(p.toJson())).toList();
+
     await prefs.setStringList(key, jsonList);
   }
 

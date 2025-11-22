@@ -6,15 +6,18 @@ class ProfileViewModel extends ChangeNotifier {
   final ProfileRepository _repository = ProfileRepository();
 
   List<Profile> _profiles = [];
-  late Profile _selectedProfile;
+  Profile? _selectedProfile;  
 
   List<Profile> get profiles => _profiles;
+  Profile? get profile => _selectedProfile;
 
-  Profile get profile => _selectedProfile;
-
-  /// Завантаження при запуску
   Future<void> loadProfiles() async {
     _profiles = await _repository.loadProfiles();
+
+    if (_profiles.isNotEmpty) {
+      _selectedProfile = _profiles.first;
+    }
+
     notifyListeners();
   }
 
@@ -26,12 +29,16 @@ class ProfileViewModel extends ChangeNotifier {
   Future<void> addProfile(Profile profile) async {
     await _repository.addProfile(profile);
     _profiles = _repository.getAllProfiles();
+
+    _selectedProfile = profile;
+
     notifyListeners();
   }
 
   Future<void> duplicateProfile(Profile profile) async {
     await _repository.duplicateProfile(profile);
     _profiles = _repository.getAllProfiles();
+
     notifyListeners();
   }
 }

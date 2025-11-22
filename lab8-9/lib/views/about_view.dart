@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../viewmodels/profile_viewmodel.dart';
 import '../widgets/info_card.dart';
+import '../widgets/ad_unified_banner.dart'; 
 
 class AboutView extends StatelessWidget {
   const AboutView({super.key});
@@ -12,14 +13,18 @@ class AboutView extends StatelessWidget {
     final vm = context.watch<ProfileViewModel>();
     final profile = vm.profile;
 
+    if (profile == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(profile.title),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            context.go('/'); 
-          },
+          onPressed: () => context.go('/'),
         ),
       ),
       body: Padding(
@@ -35,6 +40,10 @@ class AboutView extends StatelessWidget {
             InfoCard(title: 'Email', content: profile.email),
             const SizedBox(height: 10),
             InfoCard(title: 'Опис', content: profile.bio),
+
+            const SizedBox(height: 20),
+            const AdUnifiedBanner(), 
+
           ],
         ),
       ),
